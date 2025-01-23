@@ -6,23 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <!-- css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'reminder/style.css' %}"
+    <link rel="stylesheet" type="text/css" href="{% static 'reminder/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'reminder/style1.css' %}">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Danfo&family=Noto+Serif+JP:wght@200..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
+        <h1>REMINDER</h1>
         <nav>
-            <ul>
-                <li><a>Home</a></li>
+            <ul class="nav_item">
+                <li><a href="{% url 'reminder:index' %}">ホーム</a></li>
             </ul>
         </nav>
     </header>
 
-    <form action="{% url 'reminder:SaveSchedule' %}">
-        {% csrf_token %}
-        <label for="title">タイトル</label>
-        <input type="text" name="text" id="title">
+    <div class="top_content">
+        <h2>今日の予定</h2>
+    
+        <form action="{% url 'reminder:SaveSchedule' %}" method="post">
+            {% csrf_token %}
+            <label for="title">タイトル</label>
+            <input type="text" name="text" id="title">
 
-        <button type="submit" value="SaveSchedule">登録</button>
-    </form>
+            <!-- <label for="date">日時</label>
+            <input type="text" name="date" id="date"> -->
+    
+            <button type="submit" value="SaveSchedule">登録</button>
+        </form>
+    </div>
+    <div class="bottom_content">
+        <h2>予定一覧</h2>
+        {% if scedule_title %}
+        <ul class="scedule_text">
+            {% for scedule in scedule_title %}
+            <li>{{ scedule.scedule_text }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>現在は予定は何もありません</p>
+        {% endif %}
+    </div>
+    </div>
 </body>
 </html>
