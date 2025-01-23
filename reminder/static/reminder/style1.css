@@ -1,5 +1,6 @@
 .top_content {
     color: #fff;
+    display: flex;
 }
 
 .bottom_content {

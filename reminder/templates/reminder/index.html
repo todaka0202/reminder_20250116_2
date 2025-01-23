@@ -24,7 +24,10 @@
     </header>
 
     <div class="top_content">
-        <h2>今日の予定</h2>
+        <div class="today_schedule">
+            <h2>今日の予定</h2>
+            <p>今日の予定はありません。ゆっくりお過ごしください</p>
+        </div>
     
         <form action="{% url 'reminder:SaveSchedule' %}" method="post">
             {% csrf_token %}
@@ -46,7 +49,7 @@
             {% endfor %}
         </ul>
         {% else %}
-        <p>現在は予定は何もありません</p>
+        <p>予定は何もありません</p>
         {% endif %}
     </div>
     </div>
