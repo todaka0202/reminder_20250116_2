@@ -13,5 +13,13 @@
             </ul>
         </nav>
     </header>
+
+    <form action="{% url 'reminder:SaveSchedule' %}">
+        {% csrf_token %}
+        <label for="title">タイトル</label>
+        <input type="text" name="text" id="title">
+
+        <button type="submit" value="SaveSchedule">登録</button>
+    </form>
 </body>
 </html>
