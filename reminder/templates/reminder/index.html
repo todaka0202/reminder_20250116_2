@@ -26,7 +26,7 @@
     <div class="top_content">
         <div class="today_schedule">
             <h2>今日の予定</h2>
-            <p>今日の予定はありません。ゆっくりお過ごしください</p>
+            <p>今日の予定はありません。ごゆっくりお過ごしください</p>
         </div>
     
         <form action="{% url 'reminder:SaveSchedule' %}" method="post">
@@ -42,16 +42,15 @@
     </div>
     <div class="bottom_content">
         <h2>予定一覧</h2>
-        {% if scedule_title %}
-        <ul class="scedule_text">
-            {% for scedule in scedule_title %}
-            <li>{{ scedule.scedule_text }}</li>
+        {% if schedule_title %}
+        <ul class="schedule_text">
+            {% for schedule in schedule_title %}
+            <li>{{ schedule.schedule_text }}</li>
             {% endfor %}
         </ul>
         {% else %}
         <p>予定は何もありません</p>
         {% endif %}
-    </div>
     </div>
 </body>
 </html>
