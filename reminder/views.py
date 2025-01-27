@@ -1,4 +1,4 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.shortcuts import HttpResponsePermanentRedirect
 
 # from django.shortcuts import HttpResponseRedirect
@@ -13,10 +13,18 @@ class IndexView(generic.TemplateView):
     context_object_name = "schedule_title"
     model = Schedule
 
-    def index(self):
-        schedule_title = Schedule.objects.order_by("schedule_text")
-        context = {"schedule_title": schedule_title}
-        return render("reminder/index.html", context)
+    # def index(self):
+    #     schedule_title = Schedule.objects.order_by("schedule_text")
+    #     context = {"schedule_title": schedule_title}
+    #     return render("reminder/index.html", context)
+
+    def get_queryset(self):
+        return Schedule.objects.order_by("schedule_text")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["schedule_title"] = self.get_queryset()
+        return context
 
 
 def SaveSchedule(request):
