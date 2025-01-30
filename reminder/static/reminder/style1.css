@@ -1,3 +1,8 @@
+.container {
+    width: 800px;
+    margin: 40px auto;
+}
+
 .top_content {
     color: #fff;
     display: flex;
@@ -5,4 +10,5 @@
 
 .bottom_content {
     color: #fff;
+    margin: 0 auto;
 }
