@@ -12,5 +12,10 @@ class DateChoice(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     datechoice_text = models.DateField("date published")
 
-    def __str__(self):
-        return self.datechoice_text
+    # def __str__(self):
+    #     return self.datechoice_text
+
+
+class Task(models.Model):
+    title = models.CharField(max_length=255)
+    reminder_time = models.DateTimeField()

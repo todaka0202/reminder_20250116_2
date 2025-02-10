@@ -27,16 +27,24 @@
 <div class="top_content">
     <div class="today_schedule">
         <h2>今日の予定</h2>
+        {% if tasks %}
+        <ul>
+            {% for todaytask in tasks %}
+            <li>{{ todaytask.tasks }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
         <p>今日の予定はありません。ごゆっくりお過ごしください</p>
+        {% endif %}
     </div>
 
     <form class="form_content" action="{% url 'reminder:SaveSchedule' %}" method="post">
         {% csrf_token %}
         <label for="title">タイトル</label>
-        <input type="text" name="text" id="title">
+        <input type="text" name="title" id="title">
 
-        <!-- <label for="date">日時</label>
-        <input type="text" name="date" id="date"> -->
+        <label for="date">日時</label>
+        <input type="text" name="reminder_time" id="date">
 
         <button type="submit" value="SaveSchedule">登録</button>
     </form>
@@ -44,10 +52,10 @@
 
 <div class="bottom_content">
     <h2>予定一覧</h2>
-    {% if schedule_title %}
+    {% if title %}
     <ul class="schedule_text">
-        {% for schedule in schedule_title %}
-        <li>{{ schedule.schedule_text }}</li>
+        {% for schedule in title %}
+        <li>{{ schedule.title }} {{ schedule.reminder_time }}</li>
         {% endfor %}
     </ul>
     {% else %}
