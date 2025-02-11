@@ -55,11 +55,11 @@
 <div class="bottom_content">
     <h2 class="task_list">予定一覧</h2>
     <table>
+        {% if title %}
         <tr>
             <th>タイトル</th>
             <th>日時</th>
         </tr>
-        {% if title %}
         {% for schedule in title %}
         <tr>
             <td><span class="task_title">{{ schedule.title }}</span></td>
