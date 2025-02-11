@@ -1,10 +1,10 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.shortcuts import HttpResponsePermanentRedirect
 
 # from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import reverse
 from django.views import generic
-from datetime import datetime
+# from datetime import datetime
 
 from .models import Task
 
@@ -15,7 +15,7 @@ class IndexView(generic.TemplateView):
     model = Task
 
     def get_queryset(self):
-        return Task.objects.order_by("title")
+        return Task.objects.order_by("reminder_time")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,18 +31,8 @@ def SaveSchedule(request):
         schedule = Task(title=title, reminder_time=reminder_time)
 
         if schedule != "":
-            schedule.save()
-
+            if reminder_time != "":
+                schedule.save()
+            else:
+                return HttpResponsePermanentRedirect(reverse("reminder:index"))
     return HttpResponsePermanentRedirect(reverse("reminder:index"))
-
-
-def list(request):
-    # 今日の分のみの絞り込みチェックボックス
-    only_today = request.GET.get("only_today")
-    if only_today is not None:
-        # 今日の日付の分のみ（reminder_timeは時分秒以下も持っているので日付までで比較）
-        tasks = Task.objects.filter(reminder_time__date=datetime.now().date())
-        context = {"tasks": tasks}
-    else:
-        tasks = Task.objects.all()
-    return render(request, "reminder/index.html", context)

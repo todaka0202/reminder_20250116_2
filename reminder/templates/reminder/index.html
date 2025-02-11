@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <!-- css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'reminder/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'reminder/style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'reminder/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'reminder/css/style1.css' %}">
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,50 +18,62 @@
     <h1>REMINDER</h1>
     <nav>
         <ul class="nav_item">
-            <li><a href="{% url 'reminder:index' %}">ホーム</a></li>
+            <li><a href="{% url 'reminder:index' %}">Home</a></li>
         </ul>
     </nav>
 </header>
 
 <div class="container">
 <div class="top_content">
-    <div class="today_schedule">
-        <h2>今日の予定</h2>
+    <div class="today_schedul">
+        <h2 class="today_schedul_title">今日の予定</h2>
         {% if tasks %}
         <ul>
-            {% for todaytask in tasks %}
-            <li>{{ todaytask.tasks }}</li>
+            {% for nexttask in tasks %}
+            <li>{{ nexttask.tasks }}</li>
             {% endfor %}
         </ul>
         {% else %}
-        <p>今日の予定はありません。ごゆっくりお過ごしください</p>
+        <p>今日の予定はありません。<br>ごゆっくりお過ごしください。</p>
         {% endif %}
     </div>
 
     <form class="form_content" action="{% url 'reminder:SaveSchedule' %}" method="post">
         {% csrf_token %}
-        <label for="title">タイトル</label>
-        <input type="text" name="title" id="title">
-
-        <label for="date">日時</label>
-        <input type="text" name="reminder_time" id="date">
-
+        <div class="form_item">
+            <label for="title"><span>タイトル</span></label>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="form_item">
+            <label for="date"><span>日時</span></label>
+            <input type="text" name="reminder_time" id="date">
+        </div>
         <button type="submit" value="SaveSchedule">登録</button>
     </form>
 </div>
 
 <div class="bottom_content">
-    <h2>予定一覧</h2>
-    {% if title %}
-    <ul class="schedule_text">
+    <h2 class="task_list">予定一覧</h2>
+    <table>
+        <tr>
+            <th>タイトル</th>
+            <th>日時</th>
+        </tr>
+        {% if title %}
         {% for schedule in title %}
-        <li>{{ schedule.title }} {{ schedule.reminder_time }}</li>
+        <tr>
+            <td><span class="task_title">{{ schedule.title }}</span></td>
+            <td><span class="task_time">{{ schedule.reminder_time|date:"Y/m/d" }}</span></td>
+            <td class="edit not_implemented"><a class="task_button">編集</a></td>
+            <td class="not_implemented"><a class="task_button">削除</a></td>
+        </tr>
         {% endfor %}
-    </ul>
-    {% else %}
+        {% else %}
+    </table>
     <p>予定は何もありません</p>
     {% endif %}
 </div>
 </div>
+<script src="{% static 'reminder/js/script.js' %}"></script>
 </body>
 </html>
